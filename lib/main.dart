@@ -2,28 +2,25 @@ import 'package:flutter/material.dart';
 import 'package:flutter/gestures.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-
 void main() => runApp(MyApp());
 
-class MyApp extends StatelessWidget{
+class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Home()
-    );
+    return MaterialApp(home: Home());
   }
 }
 
-class Home extends StatefulWidget{
+class Home extends StatefulWidget {
   const Home();
   @override
   _HomeState createState() => _HomeState();
 }
 
 class _HomeState extends State<Home> {
-
   static const String flutterUrl = 'https://flutter.io/';
   static const String githubUrl = 'https://github.com/kitamuyu';
+  int counter = 0;
 
   static const TextStyle linkStyle = const TextStyle(
     color: Colors.blue,
@@ -36,8 +33,10 @@ class _HomeState extends State<Home> {
   @override
   void initState() {
     super.initState();
-    _flutterTapRecognizer = TapGestureRecognizer()..onTap = () => _openUrl(flutterUrl);
-    _githubTapRecognizer = TapGestureRecognizer()..onTap = () => _openUrl(githubUrl);
+    _flutterTapRecognizer = TapGestureRecognizer()
+      ..onTap = () => _openUrl(flutterUrl);
+    _githubTapRecognizer = TapGestureRecognizer()
+      ..onTap = () => _openUrl(githubUrl);
   }
 
   @override
@@ -71,6 +70,7 @@ class _HomeState extends State<Home> {
             context: context,
             builder: (BuildContext context) => _buildAboutDialog(context),
           );
+          counter++;
           // Perform some action
         },
       ),
@@ -79,7 +79,7 @@ class _HomeState extends State<Home> {
 
   Widget _buildAboutDialog(BuildContext context) {
     return AlertDialog(
-      title: const Text('About Pop up'),
+      title: const Text('Hello, Pop up.'),
       content: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -91,16 +91,20 @@ class _HomeState extends State<Home> {
       actions: <Widget>[
         FlatButton(
           onPressed: () {
-            Navigator.of(context).pop();
+            for (var i = 0; i < counter; i++) {
+              Navigator.of(context).pop();
+            }
+            counter = 0;
           },
           textColor: Theme.of(context).primaryColor,
-          child: const Text('Okay, got it!'),
-        ),FlatButton(
+          child: const Text('Close all'),
+        ),
+        FlatButton(
           onPressed: () {
-              showDialog(
-                context: context,
-                builder: (BuildContext context) => _buildAboutDialog(context),
-              );// Perform some action
+            showDialog(
+              context: context,
+              builder: (BuildContext context) => _buildAboutDialog(context),
+            ); // Perform some action
           },
           textColor: Theme.of(context).primaryColor,
           child: const Text('Show more popup'),
@@ -112,7 +116,8 @@ class _HomeState extends State<Home> {
   Widget _buildAboutText() {
     return RichText(
       text: TextSpan(
-        text: 'Android Popup Menu displays the menu below the anchor text if space is available otherwise above the anchor text. It disappears if you click outside the popup menu.\n\n',
+        text:
+            'Android Popup Menu displays the menu below the anchor text if space is available otherwise above the anchor text. It disappears if you click outside the popup menu.\n\n',
         style: const TextStyle(color: Colors.black87),
         children: <TextSpan>[
           const TextSpan(text: 'The app was developed with '),
@@ -122,7 +127,7 @@ class _HomeState extends State<Home> {
             style: linkStyle,
           ),
           const TextSpan(
-            text: ' and it\'s open source; check out the source '
+            text: ' and it\'s open source. check out the source '
                 'code yourself from ',
           ),
           TextSpan(
@@ -138,7 +143,7 @@ class _HomeState extends State<Home> {
 
   Widget _buildLogoAttribution() {
     return Padding(
-      padding: const EdgeInsets.only(top: 16.0),
+      padding: const EdgeInsets.only(top: 20.0),
       child: Row(
         children: <Widget>[
           const Expanded(
@@ -158,11 +163,8 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Container(
-
-      padding: const EdgeInsets.only(top: 100.0),
-
+      padding: const EdgeInsets.only(top: 150.0),
       color: Theme.of(context).scaffoldBackgroundColor,
-
       child: Column(
         children: <Widget>[
           home(context),
