@@ -17,7 +17,7 @@ class Home extends StatefulWidget {
   _HomeState createState() => _HomeState();
 }
 
-class _HomeState extends State<Home> {
+class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
   static const String flutterUrl = 'https://flutter.io/';
   static const String githubUrl = 'https://github.com/kitamuyu';
   int counter = 0;
@@ -30,9 +30,14 @@ class _HomeState extends State<Home> {
   TapGestureRecognizer _flutterTapRecognizer;
   TapGestureRecognizer _githubTapRecognizer;
 
+  AnimationController controller;
+  Animation<double> opacityAnimation;
+  Animation<double> scaleAnimatoin;
+
   @override
   void initState() {
     super.initState();
+
     _flutterTapRecognizer = TapGestureRecognizer()
       ..onTap = () => _openUrl(flutterUrl);
     _githubTapRecognizer = TapGestureRecognizer()
@@ -58,22 +63,34 @@ class _HomeState extends State<Home> {
   }
 
   Widget home(BuildContext context) {
-    return Material(
-      child: RaisedButton(
-        child: const Text('Show Pop-up'),
-        color: Theme.of(context).accentColor,
-        elevation: 4.0,
-        splashColor: Colors.amberAccent,
-        textColor: const Color(0xFFFFFFFF),
-        onPressed: () {
-          showDialog(
-            context: context,
-            builder: (BuildContext context) => _buildAboutDialog(context),
-          );
-          counter++;
-          // Perform some action
-        },
-      ),
+    return Column(
+      children: <Widget>[
+        RaisedButton(
+          child: const Text('Show Pop-up'),
+          color: Theme.of(context).accentColor,
+          elevation: 4.0,
+          splashColor: Colors.amberAccent,
+          textColor: const Color(0xFFFFFFFF),
+          onPressed: () {
+            showDialog(
+              context: context,
+              builder: (BuildContext context) => _buildAboutDialog(context),
+            );
+            counter++;
+            // Perform some action
+          },
+        ),
+        RaisedButton.icon(
+            onPressed: () {
+              Navigator.of(context)
+                  .overlay
+                  .insert(OverlayEntry(builder: (BuildContext context) {
+                return FunkyOverlay();
+              }));
+            },
+            icon: Icon(Icons.message),
+            label: Text("PopUp!"))
+      ],
     );
   }
 
@@ -88,6 +105,8 @@ class _HomeState extends State<Home> {
           _buildLogoAttribution(),
         ],
       ),
+      shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(10.0))),
       actions: <Widget>[
         FlatButton(
           onPressed: () {
@@ -169,6 +188,58 @@ class _HomeState extends State<Home> {
         children: <Widget>[
           home(context),
         ],
+      ),
+    );
+  }
+}
+
+class FunkyOverlay extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() => FunkyOverlayState();
+}
+
+class FunkyOverlayState extends State<FunkyOverlay>
+    with SingleTickerProviderStateMixin {
+  AnimationController controller;
+  Animation<double> opacityAnimation;
+  Animation<double> scaleAnimatoin;
+
+  @override
+  void initState() {
+    super.initState();
+
+    controller =
+        AnimationController(vsync: this, duration: Duration(milliseconds: 450));
+    opacityAnimation = Tween<double>(begin: 0.0, end: 0.4).animate(
+        CurvedAnimation(parent: controller, curve: Curves.fastOutSlowIn));
+    scaleAnimatoin =
+        CurvedAnimation(parent: controller, curve: Curves.elasticInOut);
+
+    controller.addListener(() {
+      setState(() {});
+    });
+
+    controller.forward();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      color: Colors.black.withOpacity(opacityAnimation.value),
+      child: Center(
+        child: ScaleTransition(
+          scale: scaleAnimatoin,
+          child: Container(
+            decoration: ShapeDecoration(
+                color: Colors.white,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15.0))),
+            child: Padding(
+              padding: const EdgeInsets.all(50.0),
+              child: Text("Well hello there!"),
+            ),
+          ),
+        ),
       ),
     );
   }
