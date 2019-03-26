@@ -202,7 +202,7 @@ class FunkyOverlayState extends State<FunkyOverlay>
     with SingleTickerProviderStateMixin {
   AnimationController controller;
   Animation<double> opacityAnimation;
-  Animation<double> scaleAnimatoin;
+  Animation<double> scaleAnimation;
 
   @override
   void initState() {
@@ -212,7 +212,7 @@ class FunkyOverlayState extends State<FunkyOverlay>
         AnimationController(vsync: this, duration: Duration(milliseconds: 450));
     opacityAnimation = Tween<double>(begin: 0.0, end: 0.4).animate(
         CurvedAnimation(parent: controller, curve: Curves.fastOutSlowIn));
-    scaleAnimatoin =
+    scaleAnimation =
         CurvedAnimation(parent: controller, curve: Curves.elasticInOut);
 
     controller.addListener(() {
@@ -228,7 +228,7 @@ class FunkyOverlayState extends State<FunkyOverlay>
       color: Colors.black.withOpacity(opacityAnimation.value),
       child: Center(
         child: ScaleTransition(
-          scale: scaleAnimatoin,
+          scale: scaleAnimation,
           child: Container(
             decoration: ShapeDecoration(
                 color: Colors.white,
