@@ -30,10 +30,6 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
   TapGestureRecognizer _flutterTapRecognizer;
   TapGestureRecognizer _githubTapRecognizer;
 
-  AnimationController controller;
-  Animation<double> opacityAnimation;
-  Animation<double> scaleAnimatoin;
-
   @override
   void initState() {
     super.initState();
@@ -82,11 +78,11 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
         ),
         RaisedButton.icon(
             onPressed: () {
-              Navigator.of(context)
-                  .overlay
-                  .insert(OverlayEntry(builder: (BuildContext context) {
-                return FunkyOverlay();
-              }));
+              OverlayEntry overlayEntry;
+              overlayEntry = OverlayEntry(builder: (c) {
+                return FunkyOverlay(onClose: () => overlayEntry.remove());
+              });
+              Overlay.of(context).insert(overlayEntry);
             },
             icon: Icon(Icons.message),
             label: Text("PopUp!"))
@@ -194,6 +190,8 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
 }
 
 class FunkyOverlay extends StatefulWidget {
+  final VoidCallback onClose;
+  const FunkyOverlay({Key key, this.onClose}) : super(key: key);
   @override
   State<StatefulWidget> createState() => FunkyOverlayState();
 }
@@ -203,6 +201,10 @@ class FunkyOverlayState extends State<FunkyOverlay>
   AnimationController controller;
   Animation<double> opacityAnimation;
   Animation<double> scaleAnimation;
+
+  final overlayEntry = OverlayEntry(builder: (BuildContext context) {
+    return FunkyOverlay();
+  });
 
   @override
   void initState() {
@@ -225,22 +227,24 @@ class FunkyOverlayState extends State<FunkyOverlay>
   @override
   Widget build(BuildContext context) {
     return Material(
-      color: Colors.black.withOpacity(opacityAnimation.value),
-      child: Center(
-        child: ScaleTransition(
-          scale: scaleAnimation,
-          child: Container(
-            decoration: ShapeDecoration(
-                color: Colors.white,
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15.0))),
-            child: Padding(
-              padding: const EdgeInsets.all(50.0),
-              child: Text("Well hello there!"),
+        color: Colors.black.withOpacity(opacityAnimation.value),
+        child: Center(
+          child: ScaleTransition(
+            scale: scaleAnimation,
+            child: Container(
+              decoration: ShapeDecoration(
+                  color: Colors.white,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15.0))),
+              child: Padding(
+                padding: const EdgeInsets.all(50.0),
+                child: RaisedButton(
+                  onPressed: widget.onClose,
+                  child: Text('Close!'),
+                ),
+              ),
             ),
           ),
-        ),
-      ),
-    );
+        ));
   }
 }
