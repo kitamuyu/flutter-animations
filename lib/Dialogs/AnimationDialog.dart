@@ -1,22 +1,42 @@
 import 'package:flutter/material.dart';
 
-class AnimationDialogPage extends StatefulWidget {
+class AnimationDialogPage extends StatelessWidget {
   static const routeName = 'animationdialog';
-  final VoidCallback onClose;
-  const AnimationDialogPage({Key key, this.onClose}) : super(key: key);
 
   @override
-  State<StatefulWidget> createState() => AnimationDialogPageState();
+  Widget build(BuildContext context) {
+    return Scaffold(
+        body: Center(
+            child: RaisedButton.icon(
+                onPressed: () {
+                  OverlayEntry overlayEntry;
+                  overlayEntry = OverlayEntry(builder: (c) {
+                    return AnimationDialog(
+                        onClose: () => overlayEntry.remove());
+                  });
+                  Overlay.of(context).insert(overlayEntry);
+                },
+                icon: Icon(Icons.message),
+                label: Text("PopUp!"))));
+  }
 }
 
-class AnimationDialogPageState extends State<AnimationDialogPage>
+class AnimationDialog extends StatefulWidget {
+  final VoidCallback onClose;
+  const AnimationDialog({Key key, this.onClose}) : super(key: key);
+
+  @override
+  State<StatefulWidget> createState() => AnimationDialogState();
+}
+
+class AnimationDialogState extends State<AnimationDialog>
     with SingleTickerProviderStateMixin {
   AnimationController controller;
   Animation<double> opacityAnimation;
   Animation<double> scaleAnimation;
 
   final overlayEntry = OverlayEntry(builder: (BuildContext context) {
-    return AnimationDialogPage();
+    return AnimationDialog();
   });
 
   @override
@@ -37,23 +57,8 @@ class AnimationDialogPageState extends State<AnimationDialogPage>
     controller.forward();
   }
 
-  Widget home(BuildContext context) {
-    return Scaffold(
-        body: Center(
-            child: RaisedButton.icon(
-                onPressed: () {
-                  OverlayEntry overlayEntry;
-                  overlayEntry = OverlayEntry(builder: (c) {
-                    return AnimationDialogPage(
-                        onClose: () => overlayEntry.remove());
-                  });
-                  Overlay.of(context).insert(overlayEntry);
-                },
-                icon: Icon(Icons.message),
-                label: Text("PopUp!"))));
-  }
-
-  Widget _buildDialog(BuildContext context) {
+  @override
+  Widget build(BuildContext context) {
     return Material(
         color: Colors.black.withOpacity(opacityAnimation.value),
         child: Center(
@@ -74,19 +79,5 @@ class AnimationDialogPageState extends State<AnimationDialogPage>
             ),
           ),
         ));
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.only(top: 150.0),
-      color: Theme.of(context).scaffoldBackgroundColor,
-      child: Column(
-        children: <Widget>[
-          home(context),
-          _buildDialog(context),
-        ],
-      ),
-    );
   }
 }

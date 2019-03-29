@@ -52,7 +52,7 @@ class _PageState extends State<AlertDialogPage> {
     return Column(
       children: <Widget>[
         RaisedButton(
-          child: const Text('Show Pop-up'),
+          child: const Text('Show Dialog'),
           color: Theme.of(context).accentColor,
           elevation: 4.0,
           splashColor: Colors.amberAccent,
@@ -70,7 +70,7 @@ class _PageState extends State<AlertDialogPage> {
 
   Widget _buildDialog(BuildContext context) {
     return AlertDialog(
-      title: const Text('Hello, Pop up.'),
+      title: const Text('Hello, Dialog.'),
       content: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -86,7 +86,7 @@ class _PageState extends State<AlertDialogPage> {
             Navigator.of(context).pop();
           },
           textColor: Theme.of(context).primaryColor,
-          child: const Text('Close'),
+          child: const Text('OK, I got it.'),
         )
       ],
     );
@@ -123,7 +123,7 @@ class _PageState extends State<AlertDialogPage> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.only(top: 150.0),
+      padding: const EdgeInsets.only(top: 100.0),
       color: Theme.of(context).scaffoldBackgroundColor,
       child: Column(
         children: <Widget>[

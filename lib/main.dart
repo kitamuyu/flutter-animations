@@ -51,6 +51,11 @@ class Page extends StatelessWidget {
               );
             },
           ),
+          ListTile(
+            leading: Icon(Icons.battery_full),
+            title: Text('StatefulAnimation'),
+            onTap: () {},
+          ),
         ],
       ),
     );
