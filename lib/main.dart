@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:my_app/Dialogs/AlertDialog.dart';
 import 'package:my_app/Dialogs/AnimationDialog.dart';
+import 'package:my_app/Animations/StatefulAnimation.dart';
 
 void main() => runApp(Home());
 
@@ -13,6 +14,7 @@ class Home extends StatelessWidget {
       routes: {
         AlertDialogPage.routeName: (context) => AlertDialogPage(),
         AnimationDialogPage.routeName: (context) => AnimationDialogPage(),
+        StatefulAnimationPage.routeName: (context) => StatefulAnimationPage(),
       },
     );
   }
@@ -54,7 +56,12 @@ class Page extends StatelessWidget {
           ListTile(
             leading: Icon(Icons.battery_full),
             title: Text('StatefulAnimation'),
-            onTap: () {},
+            onTap: () {
+              Navigator.pushNamed(
+                context,
+                StatefulAnimationPage.routeName,
+              );
+            },
           ),
         ],
       ),
