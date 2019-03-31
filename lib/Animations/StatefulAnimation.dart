@@ -8,14 +8,29 @@ class StatefulAnimationPage extends StatefulWidget {
 }
 
 class _AnimationState extends State<StatefulAnimationPage> {
+  bool _enabled = false;
+  Image gifimage = Image.asset('assets/gifs/loading.gif');
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
           child: Column(
         children: <Widget>[
-          Image.asset('assets/gifs/loading.gif'),
-          Image.asset('assets/gifs/check.gif')
+          gifimage,
+          Center(
+            child: Switch(
+              value: _enabled,
+              onChanged: (bool value) {
+                setState(() {
+                  _enabled = value;
+                  gifimage = _enabled
+                      ? Image.asset('assets/gifs/check.gif')
+                      : Image.asset('assets/gifs/loading.gif');
+                });
+              },
+            ),
+          )
         ],
       )),
     );
