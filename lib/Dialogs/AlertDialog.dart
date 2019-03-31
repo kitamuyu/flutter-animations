@@ -49,9 +49,9 @@ class _PageState extends State<AlertDialogPage> {
   }
 
   Widget home(BuildContext context) {
-    return Column(
-      children: <Widget>[
-        RaisedButton(
+    return Scaffold(
+      body: Center(
+        child: RaisedButton(
           child: const Text('Show Dialog'),
           color: Theme.of(context).accentColor,
           elevation: 4.0,
@@ -64,7 +64,7 @@ class _PageState extends State<AlertDialogPage> {
             );
           },
         ),
-      ],
+      ),
     );
   }
 
@@ -123,13 +123,8 @@ class _PageState extends State<AlertDialogPage> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.only(top: 100.0),
       color: Theme.of(context).scaffoldBackgroundColor,
-      child: Column(
-        children: <Widget>[
-          home(context),
-        ],
-      ),
+      child: home(context),
     );
   }
 }
