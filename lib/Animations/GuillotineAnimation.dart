@@ -45,8 +45,8 @@ class Guillotine extends StatefulWidget {
 class _GuillotineState extends State<Guillotine>
     with SingleTickerProviderStateMixin {
   AnimationController _controller;
-  Animation<double> animationMenu;
-  Animation<double> animationTitleInOut;
+  Animation animationMenu;
+  Animation animationTitleInOut;
   _GuillotineAnimationStatus menuAnimationStatus;
 
   final List<Map> _menus = <Map>[
@@ -84,8 +84,8 @@ class _GuillotineState extends State<Guillotine>
     _controller.addListener(() {});
 
     animationMenu = Tween(
-      begin: -pi / 2,
-      end: 0,
+      begin: -pi / 2.0,
+      end: 0.0,
     ).animate(CurvedAnimation(
         parent: _controller,
         curve: Curves.bounceOut,
@@ -107,7 +107,7 @@ class _GuillotineState extends State<Guillotine>
       });
 
     animationTitleInOut = Tween(begin: 1.0, end: 0.0).animate(CurvedAnimation(
-        parent: _controller, curve: Interval(0, 0.5, curve: Curves.ease)));
+        parent: _controller, curve: Interval(0.0, 0.5, curve: Curves.ease)));
   }
 
   @override
