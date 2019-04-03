@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'dart:math';
 
-class CustomMenuPage extends StatefulWidget {
-  static const routeName = 'custommenu';
+class GuillotineMenuPage extends StatefulWidget {
+  static const routeName = 'guillotineanimation';
 
   @override
   _MenuState createState() => _MenuState();
 }
 
-class _MenuState extends State<CustomMenuPage> {
+class _MenuState extends State<GuillotineMenuPage> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(

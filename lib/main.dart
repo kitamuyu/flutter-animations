@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:my_app/Dialogs/AlertDialog.dart';
 import 'package:my_app/Dialogs/AnimationDialog.dart';
 import 'package:my_app/Animations/StatefulAnimation.dart';
+import 'package:my_app/Animations/GuillotineAnimation.dart';
 
 void main() => runApp(Home());
 
@@ -15,6 +16,7 @@ class Home extends StatelessWidget {
         AlertDialogPage.routeName: (context) => AlertDialogPage(),
         AnimationDialogPage.routeName: (context) => AnimationDialogPage(),
         StatefulAnimationPage.routeName: (context) => StatefulAnimationPage(),
+        GuillotineMenuPage.routeName: (context) => GuillotineMenuPage(),
       },
     );
   }
@@ -60,6 +62,16 @@ class Page extends StatelessWidget {
               Navigator.pushNamed(
                 context,
                 StatefulAnimationPage.routeName,
+              );
+            },
+          ),
+          ListTile(
+            leading: Icon(Icons.battery_full),
+            title: Text('GuillotineMenu'),
+            onTap: () {
+              Navigator.pushNamed(
+                context,
+                GuillotineMenuPage.routeName,
               );
             },
           ),
