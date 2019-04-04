@@ -32,7 +32,7 @@ class Page extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.only(top: 90),
-      color: Color(0xff222222),
+      color: Colors.white,
     );
   }
 }
@@ -57,13 +57,13 @@ class _GuillotineState extends State<Guillotine>
     },
     {
       "icon": Icons.view_agenda,
-      "title": "feed",
+      "title": "buy",
       "color": Colors.white,
     },
     {
-      "icon": Icons.swap_calls,
-      "title": "activity",
-      "color": Colors.cyan,
+      "icon": Icons.healing,
+      "title": "health",
+      "color": Colors.white,
     },
     {
       "icon": Icons.settings,
@@ -78,7 +78,7 @@ class _GuillotineState extends State<Guillotine>
     menuAnimationStatus = _GuillotineAnimationStatus.closed;
 
     _controller = AnimationController(
-      duration: const Duration(milliseconds: 1000),
+      duration: const Duration(milliseconds: 1200),
       vsync: this,
     );
     _controller.addListener(() {});
@@ -88,8 +88,8 @@ class _GuillotineState extends State<Guillotine>
       end: 0.0,
     ).animate(CurvedAnimation(
         parent: _controller,
-        curve: Curves.bounceOut,
-        reverseCurve: Curves.bounceIn))
+        curve: Curves.elasticOut,
+        reverseCurve: Curves.elasticIn))
       ..addListener(() {
         setState(() {});
       })
@@ -107,7 +107,9 @@ class _GuillotineState extends State<Guillotine>
       });
 
     animationTitleInOut = Tween(begin: 1.0, end: 0.0).animate(CurvedAnimation(
-        parent: _controller, curve: Interval(0.0, 0.5, curve: Curves.ease)));
+        parent: _controller,
+        curve: Interval(0.0, 0.1, curve: Curves.ease),
+        reverseCurve: Interval(0.9, 1.0, curve: Curves.easeIn)));
   }
 
   @override
@@ -146,7 +148,7 @@ class _GuillotineState extends State<Guillotine>
         child: Container(
           width: screenWidth,
           height: screenHeight,
-          color: Color(0xFF333333),
+          color: Colors.orange,
           child: Stack(
             children: <Widget>[
               Positioned(
@@ -188,7 +190,7 @@ class _GuillotineState extends State<Guillotine>
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(left: 64, top: 96),
+                padding: const EdgeInsets.only(left: 64, top: 90),
                 child: Container(
                   width: double.infinity,
                   height: double.infinity,

@@ -66,7 +66,7 @@ class Page extends StatelessWidget {
             },
           ),
           ListTile(
-            leading: Icon(Icons.battery_full),
+            leading: Icon(Icons.camera),
             title: Text('GuillotineMenu'),
             onTap: () {
               Navigator.pushNamed(
