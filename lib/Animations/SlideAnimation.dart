@@ -52,7 +52,8 @@ class SlideCards extends State<SlideAnimationPage> {
                     style: TextStyle(
                         color: Colors.white,
                         fontSize: 36,
-                        fontFamily: 'Quicksand-Medium',
+                        fontFamily: 'Quicksand',
+                        fontWeight: FontWeight.w500,
                         letterSpacing: 1.0),
                   ),
                   IconButton(
