@@ -3,6 +3,7 @@ import 'package:my_app/Dialogs/AlertDialog.dart';
 import 'package:my_app/Dialogs/AnimationDialog.dart';
 import 'package:my_app/Animations/StatefulAnimation.dart';
 import 'package:my_app/Animations/GuillotineAnimation.dart';
+import 'package:my_app/Animations/SlideAnimation.dart';
 
 void main() => runApp(Home());
 
@@ -17,6 +18,7 @@ class Home extends StatelessWidget {
         AnimationDialogPage.routeName: (context) => AnimationDialogPage(),
         StatefulAnimationPage.routeName: (context) => StatefulAnimationPage(),
         GuillotineMenuPage.routeName: (context) => GuillotineMenuPage(),
+        SlideAnimationPage.routeName: (context) => SlideAnimationPage(),
       },
     );
   }
@@ -75,6 +77,16 @@ class Page extends StatelessWidget {
               );
             },
           ),
+          ListTile(
+            leading: Icon(Icons.history),
+            title: Text('SlideAnimation'),
+            onTap: () {
+              Navigator.pushNamed(
+                context,
+                SlideAnimationPage.routeName,
+              );
+            },
+          )
         ],
       ),
     );
