@@ -8,6 +8,20 @@ class SlideAnimationPage extends StatefulWidget {
 }
 
 class SlideCards extends State<SlideAnimationPage> {
+  List<String> images = [
+    'assets/image_01.png',
+    'assets/image_02.jpg',
+    'assets/image_03.jpg',
+    'assets/image_04.jpg',
+  ];
+  List<String> title = [
+    "Bill Evans",
+    "Miles Davis",
+    "John Coltrane",
+    "Frank Sinatra"
+  ];
+  List<String> instrument = ["piano", "trumpet", "saxophone", "vocal"];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
